@@ -1,0 +1,39 @@
+name: Python application
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Setup Poetry
+        uses: Gr1N/setup-poetry@v9
+    
+      - name: Configure Poetry project
+        run: poetry install
+          
+      - name: Run tests with pytest
+        run: poetry run pytest --junitxml=results/test-results.xml
+    
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+  
+      - name: Submit test results to testmo
+        run: |
+          npx testmo automation:run:submit \
+            --instance https://nepsd.testmo.net \
+            --project-id 2 \
+            --name "Pytest run" \
+            --source "unittests" \
+            --results results/*.xml
