@@ -19,7 +19,10 @@ jobs:
 
       - name: Setup Poetry
         uses: Gr1N/setup-poetry@v9
-    
+
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+
       - name: Configure Poetry project
         run: poetry install
           
