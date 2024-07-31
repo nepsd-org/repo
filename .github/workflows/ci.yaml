@@ -20,15 +20,12 @@ jobs:
       - name: Setup Poetry
         uses: Gr1N/setup-poetry@v9
 
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
-
       - name: Configure Poetry project
         run: poetry install
-          
+
       - name: Run tests with pytest
         run: poetry run pytest --junitxml=results/test-results.xml
-    
+
       - name: Setup Node.js environment
         uses: actions/setup-node@v4
         
