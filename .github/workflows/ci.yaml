@@ -28,11 +28,13 @@ jobs:
 
       - name: Setup Node.js environment
         uses: actions/setup-node@v4
-        
+
       - name: Install Node.js dependencies
         run: npm ci
 
       - name: Submit test results to testmo
+        env:
+          TESTMO_TOKEN: ${{ secrets.TESTMO_TOKEN }}
         run: |
           npx testmo automation:run:submit \
             --instance https://nepsd.testmo.net \
