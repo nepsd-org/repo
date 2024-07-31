@@ -34,11 +34,9 @@ jobs:
 
       - name: Submit test results to testmo
         env:
-          TESTMO_TOKEN: ${{ secrets.TESTMO_TOKEN }}
+          ZEPHYR_TOKEN: ${{ secrets.ZEPHYR_TOKEN }}
         run: |
-          npx testmo automation:run:submit \
-            --instance https://nepsd.testmo.net \
-            --project-id 2 \
-            --name "Pytest run" \
-            --source "unittests" \
-            --results results/*.xml
+          curl \
+            -H "Authorization: Bearer ${ZEPHYR_TOKEN}" \
+            -F "file=@results/test-results.xml;type=application/xml" \
+            https://api.zephyrscale.smartbear.com/v2/automations/executions/junit?projectKey="ND"&autoCreateTestCases=true
