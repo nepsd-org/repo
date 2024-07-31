@@ -26,7 +26,7 @@ jobs:
       - name: Run tests with pytest
         run: poetry run pytest --junitxml=results/test-results.xml
 
-      - name: Submit test results to testmo
+      - name: Submit test results to Zephyr
         env:
           ZEPHYR_TOKEN: ${{ secrets.ZEPHYR_TOKEN }}
         run: |
