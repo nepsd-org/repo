@@ -26,12 +26,6 @@ jobs:
       - name: Run tests with pytest
         run: poetry run pytest --junitxml=results/test-results.xml
 
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v4
-
-      - name: Install Node.js dependencies
-        run: npm ci
-
       - name: Submit test results to testmo
         env:
           ZEPHYR_TOKEN: ${{ secrets.ZEPHYR_TOKEN }}
